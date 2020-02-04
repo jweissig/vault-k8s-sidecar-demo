@@ -18,7 +18,6 @@ spec:
           postgresql://{{ .Data.data.username }}:{{ .Data.data.password }}@postgres:5432/wizard
           {{- end }}
         vault.hashicorp.com/role: "myapp"
-        #vault.hashicorp.com/service: "http://vault"
         vault.hashicorp.com/agent-pre-populate-only: "true"
     spec:
       serviceAccountName: app
