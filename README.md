@@ -110,6 +110,16 @@ vault kv put secret/payment-api APIKEY=497CA26DA27E
 vault kv put secret/sendmail-api APIKEY=F5863ABDB85A
 ```
 
+You can list the secrets by running `vault kv list secret`.
+
+```
+Keys
+----
+helloworld
+payment-api
+sendmail-api
+```
+
 Finally, we are done. Lets exit out.
 
 ```
