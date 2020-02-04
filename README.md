@@ -14,6 +14,12 @@ Reference Links:
 * [Video: Vault + Kubernetes Sidecar Injection](https://www.youtube.com/watch?v=xUuJhgDbUJQ)
 * [Video: Dynamic Database Credentials with Vault and Kubernetes](https://www.youtube.com/watch?v=KIAXQr17-WQ)
 
+
+source <(kubectl completion zsh)
+PATH=/Users/jweissig/bin:$PATH
+
+
+
 ## Clone this demo repo
 
 ```
@@ -170,7 +176,7 @@ Next, lets look at a real world example with multiple secrets.
 
 ```
 vi patch-template-annotations-complex.yaml
-kubectl patch deployment app --patch "$(cat patch-template-annotations-complex.yaml)"
+kubectl patch deployment app --patch "$(cat patch-template-realworld.yaml)"
 kubectl exec -ti app- -c app /bin/sh
 ```
 
