@@ -14,12 +14,6 @@ Reference Links:
 * [Video: Vault + Kubernetes Sidecar Injection](https://www.youtube.com/watch?v=xUuJhgDbUJQ)
 * [Video: Dynamic Database Credentials with Vault and Kubernetes](https://www.youtube.com/watch?v=KIAXQr17-WQ)
 
-
-source <(kubectl completion zsh)
-PATH=/Users/jweissig/bin:$PATH
-
-
-
 ## Clone this demo repo
 
 ```
