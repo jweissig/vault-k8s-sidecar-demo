@@ -65,7 +65,7 @@ kubectl exec -ti vault-0 /bin/sh
 Next, lets configure a policy that we can then attach a role to (used for accessing secrets from a Kubernetes service account).
 
 ```
-cat <<EOF > /home/vault/app-<POD_NAME>policy.hcl
+cat <<EOF > /home/vault/app-policy.hcl
 path "secret*" {
   capabilities = ["read"]
 }
@@ -75,7 +75,7 @@ EOF
 Then, lets apply the policy.
 
 ```
-vault policy write app /home/vault/app-<POD_NAME>policy.hcl
+vault policy write app /home/vault/app-policy.hcl
 ```
 
 Next, enable the kubernetes auth method.
