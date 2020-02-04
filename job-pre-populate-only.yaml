@@ -1,0 +1,35 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pgdump
+spec:
+  backoffLimit: 0
+  template:
+    metadata:
+      name: pgdump
+      labels:
+        app: pgdump
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/agent-inject-secret-helloworld: "secret/helloworld"
+        vault.hashicorp.com/agent-inject-template-helloworld: |
+          {{- with secret "secret/helloworld" -}}
+          postgresql://{{ .Data.data.username }}:{{ .Data.data.password }}@postgres:5432/wizard
+          {{- end }}
+        vault.hashicorp.com/role: "myapp"
+        #vault.hashicorp.com/service: "http://vault"
+        vault.hashicorp.com/agent-pre-populate-only: "true"
+    spec:
+      serviceAccountName: app
+      containers:
+      - name: pgdump
+        #image: postgres:11.5
+        image: alpine:latest
+        command:
+          - "/bin/sh"
+          - "-ec"
+        args:
+          #- "/usr/bin/pg_dump $(cat /vault/secrets/helloworld) --no-owner > /dev/stdout"
+          - "cat /vault/secrets/helloworld > /dev/stdout"
+      restartPolicy: Never
