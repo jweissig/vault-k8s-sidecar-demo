@@ -2,7 +2,7 @@
 
 In this demo we are going to walk through a new Vault + kubernetes integration that allows application with no Vault logic built in to source secrets from Vault. This is made possible through a new tool called vault-k8s which leverages the kubernetes mutation admission webhook to intercept and argument (or change) specifically annotated pod definitions for secrets injections.
 
-Note: These are just examples, so *USE AT YOUR OWN RISK*! Please only use with a demo kubernetes cluster when learning. I am assuming you have helm installed and you know how to use Kubernetes already.
+Note: These are just examples, so **USE AT YOUR OWN RISK**! Please only use with a demo kubernetes cluster when learning. I am assuming you have helm installed and you know how to use Kubernetes already.
 
 Reference Links:
 
