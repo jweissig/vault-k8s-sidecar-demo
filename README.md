@@ -65,7 +65,7 @@ kubectl exec -ti vault-0 /bin/sh
 Next, lets configure a policy that we can then attach a role to (used for accessing secrets from a Kubernetes service account).
 
 ```
-cat <<EOF > /home/vault/app-policy.hcl
+cat <<EOF > /home/vault/app-<POD_NAME>policy.hcl
 path "secret*" {
   capabilities = ["read"]
 }
@@ -75,7 +75,7 @@ EOF
 Then, lets apply the policy.
 
 ```
-vault policy write app /home/vault/app-policy.hcl
+vault policy write app /home/vault/app-<POD_NAME>policy.hcl
 ```
 
 Next, enable the kubernetes auth method.
@@ -143,13 +143,13 @@ Lets launch our demo app that knows nothing about Vault (plus create the service
 ```
 vi app.yaml
 kubectl create -f app.yaml
-kubectl exec -ti app- -c app -- ls -l /vault/secrets
+kubectl exec -ti app-<POD_NAME> -c app -- ls -l /vault/secrets
 ```
 
 Next, lets view the definition to check for annotations (there should be none).
 
 ```
-kubectl describe pod app- | less
+kubectl describe pod app-<POD_NAME> | less
 ```
 
 Next, lets inject a secret via a sidecar and prove it works.
@@ -157,14 +157,14 @@ Next, lets inject a secret via a sidecar and prove it works.
 ```
 vi patch-basic-annotations.yaml
 kubectl patch deployment app --patch "$(cat patch-basic-annotations.yaml)"
-kubectl exec -ti app- -c app -- ls -l /vault/secrets
-kubectl exec -ti app- -c app -- cat /vault/secrets/helloworld
+kubectl exec -ti app-<POD_NAME> -c app -- ls -l /vault/secrets
+kubectl exec -ti app-<POD_NAME> -c app -- cat /vault/secrets/helloworld
 ```
 
 Lets check our annotations again (we should see some).
 
 ```
-kubectl describe pod app- | less
+kubectl describe pod app-<POD_NAME> | less
 ```
 
 Next, lets use a template to format the data into something useful.
@@ -172,8 +172,8 @@ Next, lets use a template to format the data into something useful.
 ```
 vi patch-template-annotations.yaml
 kubectl patch deployment app --patch "$(cat patch-template-annotations.yaml)"
-kubectl exec -ti app- -c app -- ls -l /vault/secrets
-kubectl exec -ti app- -c app -- cat /vault/secrets/helloworld
+kubectl exec -ti app-<POD_NAME> -c app -- ls -l /vault/secrets
+kubectl exec -ti app-<POD_NAME> -c app -- cat /vault/secrets/helloworld
 ```
 
 Next, lets look at a real world example with multiple secrets.
@@ -181,7 +181,7 @@ Next, lets look at a real world example with multiple secrets.
 ```
 vi patch-template-annotations-complex.yaml
 kubectl patch deployment app --patch "$(cat patch-template-realworld.yaml)"
-kubectl exec -ti app- -c app /bin/sh
+kubectl exec -ti app-<POD_NAME> -c app /bin/sh
 ```
 
 Next, lets check out how you might configure a background job.
