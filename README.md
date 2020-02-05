@@ -29,7 +29,7 @@ git clone --branch v0.3.3 https://github.com/hashicorp/vault-helm.git
 
 ## Configure a GCP k8s cluster
 
-I am going to assume you have a cluster called `vault-cluster` up and running already. Use this command to connect to it.
+I am going to assume you have a GCP cluster called `vault-cluster` up and running already. Use this command to connect to it.
 
 ```
 gcloud container clusters get-credentials vault-cluster --zone us-central1-a --project sidecar-injection
@@ -49,9 +49,16 @@ Next, lets install Vault onto Kubernetes (running in dev mode).
 kubectl create namespace demo
 kubectl config set-context --current --namespace=demo
 
+# helm v3
 helm install vault \
        --set='server.dev.enabled=true' \
        ./vault-helm
+
+# or helm v2
+helm install --name=vault \
+       --set='server.dev.enabled=true' \
+       ./vault-helm
+
 ```
 
 ## Configure Vault
