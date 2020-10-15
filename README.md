@@ -186,7 +186,7 @@ kubectl exec -ti app-<POD_NAME> -c app -- cat /vault/secrets/helloworld
 Next, lets look at a real world example with multiple secrets.
 
 ```
-vi patch-template-annotations-complex.yaml
+vi patch-template-realworld.yaml
 kubectl patch deployment app --patch "$(cat patch-template-realworld.yaml)"
 kubectl exec -ti app-<POD_NAME> -c app /bin/sh
 ```
