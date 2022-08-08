@@ -1,0 +1,3 @@
+[submodule "vault-helm"]
+	path = vault-helm
+	url = https://github.com/hashicorp/vault-helm.git
